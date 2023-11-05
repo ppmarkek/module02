@@ -1,4 +1,4 @@
-import { DetailsType, Results } from './types';
+import { DetailsType } from './types';
 import './App.css';
 
 type DetailsProps = {
