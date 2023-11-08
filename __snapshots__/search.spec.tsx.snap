@@ -12,6 +12,7 @@ exports[`renders correctly 1`] = `
       value=""
     />
     <button
+      data-testid="search-button"
       id="searchButton"
       onClick={[Function]}
     >
@@ -50,6 +51,141 @@ exports[`renders correctly 1`] = `
     </div>
     <div>
       Loading...
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renders correctly 2`] = `
+<div
+  className="RightCart"
+>
+  <div
+    className="Cart"
+  >
+    <h3>
+      Name: 
+    </h3>
+    <p>
+      Created: 
+    </p>
+    <p>
+      Edited: 
+    </p>
+    <p>
+      Height: 
+    </p>
+    <p>
+      Mass: 
+    </p>
+  </div>
+  <button
+    id="close"
+    onClick={[Function]}
+  >
+    X
+  </button>
+</div>
+`;
+
+exports[`should render expanded details 1`] = `
+<div>
+  <div
+    class="wrapper"
+  >
+    <div
+      class="search"
+    >
+      <input
+        value=""
+      />
+      <button
+        data-testid="search-button"
+        id="searchButton"
+      >
+        Search
+      </button>
+      <button
+        id="errorButton"
+      >
+        Throw Error
+      </button>
+      <div
+        class="requestSize"
+      >
+        <input
+          value="10"
+        />
+        <button>
+          Items shown per page
+        </button>
+      </div>
+    </div>
+    <div
+      class="result"
+    >
+      <div
+        class="fullResult"
+      >
+        <div>
+          Loading...
+        </div>
+      </div>
+      <div>
+        Loading...
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`should render expanded details 2`] = `
+<div>
+  <div
+    class="wrapper"
+  >
+    <div
+      class="search"
+    >
+      <input
+        value=""
+      />
+      <button
+        data-testid="search-button"
+        id="searchButton"
+      >
+        Search
+      </button>
+      <button
+        data-testid="error-button"
+        id="errorButton"
+      >
+        Throw Error
+      </button>
+      <div
+        class="requestSize"
+      >
+        <input
+          value="10"
+        />
+        <button>
+          Items shown per page
+        </button>
+      </div>
+    </div>
+    <div
+      class="result"
+    >
+      <div
+        class="fullResult"
+      >
+        <div>
+          Loading...
+        </div>
+      </div>
+      <div>
+        Loading...
+      </div>
     </div>
   </div>
 </div>

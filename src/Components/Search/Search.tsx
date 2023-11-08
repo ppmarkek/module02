@@ -53,7 +53,6 @@ export const Search = () => {
       .catch((error) => {
         initialRequest();
         setIsLoading(false);
-        console.error(error);
         throw error;
       });
   };
@@ -69,7 +68,6 @@ export const Search = () => {
       })
       .catch((error) => {
         setIsLoading(false);
-        console.error(error);
         throw error;
       });
   };
@@ -98,7 +96,6 @@ export const Search = () => {
       })
       .catch((error) => {
         setIsLoading(false);
-        console.error(error);
         throw error;
       });
   };
@@ -147,6 +144,7 @@ export const Search = () => {
       <div className="pagination">
         <button
           onClick={() => setPage(currentPage - 1)}
+          data-testid="first-pagination-button"
           className="paginationButton"
           disabled={currentPage <= 0}
         >
@@ -169,6 +167,7 @@ export const Search = () => {
 
         <button
           onClick={() => setPage(currentPage + 1)}
+          data-testid="second-pagination-button"
           className="paginationButton"
           disabled={currentPage >= totalPages - 1}
         >
@@ -186,7 +185,11 @@ export const Search = () => {
             onChange={(event) => setInputValue(event.target.value)}
             value={inputValue}
           />
-          <button id="searchButton" onClick={() => newSearch()}>
+          <button
+            id="searchButton"
+            data-testid="search-button"
+            onClick={() => newSearch()}
+          >
             Search
           </button>
           <button id="errorButton" onClick={() => throwError()}>
@@ -237,7 +240,6 @@ export const Search = () => {
                 </div>
               ))}
           </div>
-          {isLoading && !detailsResult && <div>Loading...</div>}
           {!isLoading && <Outlet />}
         </div>
         {!isLoading && (
