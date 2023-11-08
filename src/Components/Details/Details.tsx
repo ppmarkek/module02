@@ -1,5 +1,5 @@
-import { DetailsType } from './types';
-import './App.css';
+import { DetailsType } from '../../types';
+import '../Search/style.css';
 
 type DetailsProps = {
   detailsInfo?: DetailsType;

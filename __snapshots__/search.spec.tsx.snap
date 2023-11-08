@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="wrapper"
+>
+  <div
+    className="search"
+  >
+    <input
+      onChange={[Function]}
+      value=""
+    />
+    <button
+      id="searchButton"
+      onClick={[Function]}
+    >
+      Search
+    </button>
+    <button
+      id="errorButton"
+      onClick={[Function]}
+    >
+      Throw Error
+    </button>
+    <div
+      className="requestSize"
+    >
+      <input
+        onChange={[Function]}
+        value="10"
+      />
+      <button
+        onClick={[Function]}
+      >
+        Items shown per page
+      </button>
+    </div>
+  </div>
+  <div
+    className="result"
+  >
+    <div
+      className="fullResult"
+      onClick={[Function]}
+    >
+      <div>
+        Loading...
+      </div>
+    </div>
+    <div>
+      Loading...
+    </div>
+  </div>
+</div>
+`;

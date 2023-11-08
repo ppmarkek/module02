@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { Dispatch, ReactNode, SetStateAction } from 'react';
 
 type Result = {
   name: string;
@@ -40,4 +40,18 @@ export type DetailsType = {
   name: string;
   updatedAt: string;
   url: string;
+};
+
+interface SearchResult {
+  totalPages: number;
+  results: Results[];
+}
+
+export type AppContextType = {
+  inputValue: string;
+  setInputValue: Dispatch<SetStateAction<string>>;
+  searchResult: SearchResult | null;
+  setSearchResult: Dispatch<SetStateAction<SearchResult | null>>;
+  detailsResult: DetailsType | undefined;
+  setDetailsResult: Dispatch<SetStateAction<DetailsType | undefined>>;
 };
