@@ -182,6 +182,7 @@ export const Search = () => {
       <div className="wrapper">
         <div className="search">
           <input
+            data-testid="search-input"
             onChange={(event) => setInputValue(event.target.value)}
             value={inputValue}
           />
@@ -192,7 +193,11 @@ export const Search = () => {
           >
             Search
           </button>
-          <button id="errorButton" onClick={() => throwError()}>
+          <button
+            id="errorButton"
+            data-testid="error-input"
+            onClick={() => throwError()}
+          >
             Throw Error
           </button>
           <div className="requestSize">

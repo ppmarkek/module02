@@ -1,62 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders correctly 1`] = `
-<div
-  className="wrapper"
->
-  <div
-    className="search"
-  >
-    <input
-      onChange={[Function]}
-      value=""
-    />
-    <button
-      data-testid="search-button"
-      id="searchButton"
-      onClick={[Function]}
-    >
-      Search
-    </button>
-    <button
-      id="errorButton"
-      onClick={[Function]}
-    >
-      Throw Error
-    </button>
-    <div
-      className="requestSize"
-    >
-      <input
-        onChange={[Function]}
-        value="10"
-      />
-      <button
-        onClick={[Function]}
-      >
-        Items shown per page
-      </button>
-    </div>
-  </div>
-  <div
-    className="result"
-  >
-    <div
-      className="fullResult"
-      onClick={[Function]}
-    >
-      <div>
-        Loading...
-      </div>
-    </div>
-    <div>
-      Loading...
-    </div>
-  </div>
-</div>
-`;
-
-exports[`renders correctly 2`] = `
+exports[`Details Component renders correctly 1`] = `
 <div
   className="RightCart"
 >
@@ -88,49 +32,53 @@ exports[`renders correctly 2`] = `
 </div>
 `;
 
-exports[`should render expanded details 1`] = `
-<div>
+exports[`Search component tests renders correctly 1`] = `
+<div
+  className="wrapper"
+>
   <div
-    class="wrapper"
+    className="search"
   >
+    <input
+      data-testid="search-input"
+      onChange={[Function]}
+      value=""
+    />
+    <button
+      data-testid="search-button"
+      id="searchButton"
+      onClick={[Function]}
+    >
+      Search
+    </button>
+    <button
+      data-testid="error-input"
+      id="errorButton"
+      onClick={[Function]}
+    >
+      Throw Error
+    </button>
     <div
-      class="search"
+      className="requestSize"
     >
       <input
-        value=""
+        onChange={[Function]}
+        value="10"
       />
       <button
-        data-testid="search-button"
-        id="searchButton"
+        onClick={[Function]}
       >
-        Search
+        Items shown per page
       </button>
-      <button
-        id="errorButton"
-      >
-        Throw Error
-      </button>
-      <div
-        class="requestSize"
-      >
-        <input
-          value="10"
-        />
-        <button>
-          Items shown per page
-        </button>
-      </div>
     </div>
+  </div>
+  <div
+    className="result"
+  >
     <div
-      class="result"
+      className="fullResult"
+      onClick={[Function]}
     >
-      <div
-        class="fullResult"
-      >
-        <div>
-          Loading...
-        </div>
-      </div>
       <div>
         Loading...
       </div>
@@ -139,7 +87,7 @@ exports[`should render expanded details 1`] = `
 </div>
 `;
 
-exports[`should render expanded details 2`] = `
+exports[`Search component tests should allow entering a search term: people 1`] = `
 <div>
   <div
     class="wrapper"
@@ -148,6 +96,7 @@ exports[`should render expanded details 2`] = `
       class="search"
     >
       <input
+        data-testid="search-input"
         value=""
       />
       <button
@@ -157,7 +106,7 @@ exports[`should render expanded details 2`] = `
         Search
       </button>
       <button
-        data-testid="error-button"
+        data-testid="error-input"
         id="errorButton"
       >
         Throw Error
@@ -183,8 +132,55 @@ exports[`should render expanded details 2`] = `
           Loading...
         </div>
       </div>
-      <div>
-        Loading...
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Search component tests should render expanded details 1`] = `
+<div>
+  <div
+    class="wrapper"
+  >
+    <div
+      class="search"
+    >
+      <input
+        data-testid="search-input"
+        value=""
+      />
+      <button
+        data-testid="search-button"
+        id="searchButton"
+      >
+        Search
+      </button>
+      <button
+        data-testid="error-input"
+        id="errorButton"
+      >
+        Throw Error
+      </button>
+      <div
+        class="requestSize"
+      >
+        <input
+          value="10"
+        />
+        <button>
+          Items shown per page
+        </button>
+      </div>
+    </div>
+    <div
+      class="result"
+    >
+      <div
+        class="fullResult"
+      >
+        <div>
+          Loading...
+        </div>
       </div>
     </div>
   </div>
