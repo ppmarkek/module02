@@ -4,7 +4,7 @@ import { Search } from './Components/Search/Search';
 import { Details } from './Components/Details/Details';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { AppContext } from './Context/AppContext';
-import { DetailsType, Results } from './types';
+import { Results } from './types';
 
 const router = createBrowserRouter([
   {
@@ -28,7 +28,7 @@ export const App = () => {
   const storedSearchValue = localStorage.getItem('searchValue');
   const [inputValue, setInputValue] = useState(storedSearchValue ?? '');
   const [searchResult, setSearchResult] = useState<SearchResult | null>(null);
-  const [detailsResult, setDetailsResult] = useState<DetailsType | undefined>(
+  const [detailsResult, setDetailsResult] = useState<Results | undefined>(
     undefined
   );
 

@@ -1,28 +1,22 @@
-import { DetailsType } from '../../types';
+import { Results } from '../../types';
 import '../Search/style.css';
 
 type DetailsProps = {
-  detailsInfo?: DetailsType;
+  detailsInfo?: Results;
   onClickClose?: () => void;
 };
 
 export const Details = ({ detailsInfo, onClickClose }: DetailsProps) => {
-  const handleCloseClick = () => {
-    if (onClickClose) {
-      onClickClose();
-    }
-  };
-
   return (
     <div className={'RightCart'}>
       <div className={'Cart'}>
-        <h3>Name: {detailsInfo?.name}</h3>
+        <h3 data-testid="name">Name: {detailsInfo?.name}</h3>
         <p>Created: {detailsInfo?.createdAt}</p>
         <p>Edited: {detailsInfo?.updatedAt}</p>
         <p>Height: {detailsInfo?.height}</p>
         <p>Mass: {detailsInfo?.mass}</p>
       </div>
-      <button id={'close'} onClick={handleCloseClick}>
+      <button data-testid="close-icon" id={'close'} onClick={onClickClose}>
         X
       </button>
     </div>

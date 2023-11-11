@@ -1,34 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Details Component renders correctly 1`] = `
+exports[`Search component tests displays loading indicator 1`] = `
 <div
-  className="RightCart"
+  data-testid="loading-text"
 >
-  <div
-    className="Cart"
-  >
-    <h3>
-      Name: 
-    </h3>
-    <p>
-      Created: 
-    </p>
-    <p>
-      Edited: 
-    </p>
-    <p>
-      Height: 
-    </p>
-    <p>
-      Mass: 
-    </p>
-  </div>
-  <button
-    id="close"
-    onClick={[Function]}
-  >
-    X
-  </button>
+  Loading...
 </div>
 `;
 
@@ -79,7 +55,9 @@ exports[`Search component tests renders correctly 1`] = `
       className="fullResult"
       onClick={[Function]}
     >
-      <div>
+      <div
+        data-testid="loading-text"
+      >
         Loading...
       </div>
     </div>
@@ -128,7 +106,9 @@ exports[`Search component tests should allow entering a search term: people 1`] 
       <div
         class="fullResult"
       >
-        <div>
+        <div
+          data-testid="loading-text"
+        >
           Loading...
         </div>
       </div>
@@ -178,7 +158,9 @@ exports[`Search component tests should render expanded details 1`] = `
       <div
         class="fullResult"
       >
-        <div>
+        <div
+          data-testid="loading-text"
+        >
           Loading...
         </div>
       </div>

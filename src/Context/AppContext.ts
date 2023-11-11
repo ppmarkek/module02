@@ -1,7 +1,7 @@
 import { createContext } from 'react';
 import { AppContextType } from '../types';
 
-const initialState: AppContextType = {
+export const initialState: AppContextType = {
   inputValue: '',
   setInputValue: () => {},
   searchResult: null,
@@ -9,4 +9,5 @@ const initialState: AppContextType = {
   detailsResult: undefined,
   setDetailsResult: () => {},
 };
+
 export const AppContext = createContext<AppContextType>(initialState);

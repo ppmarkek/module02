@@ -1,16 +1,10 @@
 import React, { useEffect, useState, useContext } from 'react';
 import './style.css';
 import axios from 'axios';
-import { Results } from '../../types';
-import {
-  Routes,
-  Route,
-  Outlet,
-  useSearchParams,
-  useNavigate,
-} from 'react-router-dom';
+import { Routes, Route, useSearchParams, useNavigate } from 'react-router-dom';
 import { Details } from '../Details/Details';
 import { AppContext } from '../../Context/AppContext';
+import { SearchResults } from '../SearchResults/SearchResults';
 
 const API_URL = 'https://backend.dreamdev.lv/api';
 
@@ -209,12 +203,14 @@ export const Search = () => {
           </div>
         </div>
         {/* TODO: request size */}
-        <div className={'result'}>
+        {/* <div className={'result'}>
           <div
             className={detailsResult ? 'fiftyPercentResult' : 'fullResult'}
             onClick={() => detailsResult && closeDetails()}
           >
-            {isLoading && !searchResult && <div>Loading...</div>}
+            {isLoading && !searchResult && (
+              <div data-testid="loading-text">Loading...</div>
+            )}
             {!isLoading &&
               searchResult &&
               searchValue &&
@@ -246,7 +242,15 @@ export const Search = () => {
               ))}
           </div>
           {!isLoading && <Outlet />}
-        </div>
+        </div> */}
+        <SearchResults
+          isLoading={isLoading}
+          detailsResult={detailsResult}
+          searchResult={searchResult}
+          searchValue={searchValue}
+          closeDetails={closeDetails}
+          getDetailsData={getDetailsData}
+        />
         {!isLoading && (
           <PagginationButtons
             totalPages={totalPages}

@@ -17,6 +17,6 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["src"],
+  "include": ["src", "fixtures/results.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
