@@ -5,6 +5,7 @@ import { Routes, Route, useSearchParams, useNavigate } from 'react-router-dom';
 import { Details } from '../Details/Details';
 import { AppContext } from '../../Context/AppContext';
 import { SearchResults } from '../SearchResults/SearchResults';
+import { SearchWrapper } from '../SearchWrapper/SearchWrapper';
 
 const API_URL = 'https://backend.dreamdev.lv/api';
 
@@ -106,10 +107,6 @@ export const Search = () => {
     });
   };
 
-  const throwError = () => {
-    throw new Error('Intentional error for testing ErrorBoundary');
-  };
-
   useEffect(() => {
     getData({ page: currentPage, size: parseInt(itemsPage), inputValue });
   }, []);
@@ -171,99 +168,35 @@ export const Search = () => {
     );
   };
 
-  const Search = () => {
-    return (
-      <div className="wrapper">
-        <div className="search">
-          <input
-            data-testid="search-input"
-            onChange={(event) => setInputValue(event.target.value)}
-            value={inputValue}
-          />
-          <button
-            id="searchButton"
-            data-testid="search-button"
-            onClick={() => newSearch()}
-          >
-            Search
-          </button>
-          <button
-            id="errorButton"
-            data-testid="error-input"
-            onClick={() => throwError()}
-          >
-            Throw Error
-          </button>
-          <div className="requestSize">
-            <input
-              onChange={(event) => setItemsPage(event.target.value)}
-              value={itemsPage}
-            />
-            <button onClick={() => newSearch()}>Items shown per page</button>
-          </div>
-        </div>
-        {/* TODO: request size */}
-        {/* <div className={'result'}>
-          <div
-            className={detailsResult ? 'fiftyPercentResult' : 'fullResult'}
-            onClick={() => detailsResult && closeDetails()}
-          >
-            {isLoading && !searchResult && (
-              <div data-testid="loading-text">Loading...</div>
-            )}
-            {!isLoading &&
-              searchResult &&
-              searchValue &&
-              searchResult?.results?.map((value: Results, index: number) => (
-                <div
-                  className={'Cart'}
-                  key={index}
-                  onClick={() => {
-                    if (!detailsResult) {
-                      navigate(`/details/${value.id}`);
-                      getDetailsData((value.id ?? '0').toString());
-                    }
-                  }}
-                >
-                  <h3>Name: {value.name}</h3>
-                  <p>Created: {value.createdAt}</p>
-                  <p>Edited: {value.updatedAt}</p>
-                  <p>Height: {value.height}</p>
-                  <p>Mass: {value.mass}</p>
-                </div>
-              ))}
-            {!isLoading &&
-              searchResult &&
-              !searchValue &&
-              Object.keys(searchResult).map((value, index) => (
-                <div key={index}>
-                  <h3>{value}</h3>
-                </div>
-              ))}
-          </div>
-          {!isLoading && <Outlet />}
-        </div> */}
-        <SearchResults
-          isLoading={isLoading}
-          detailsResult={detailsResult}
-          searchResult={searchResult}
-          searchValue={searchValue}
-          closeDetails={closeDetails}
-          getDetailsData={getDetailsData}
-        />
-        {!isLoading && (
-          <PagginationButtons
-            totalPages={totalPages}
-            currentPage={currentPage}
-          />
-        )}
-      </div>
-    );
-  };
-
   return (
     <Routes>
-      <Route path="/" element={<Search />}>
+      <Route
+        path="/"
+        element={
+          <SearchWrapper
+            inputValue={inputValue}
+            itemsPage={itemsPage}
+            newSearch={newSearch}
+            setItemsPage={(event) => setItemsPage(event)}
+            setInputValue={(event) => setInputValue(event)}
+          >
+            <SearchResults
+              isLoading={isLoading}
+              detailsResult={detailsResult}
+              searchResult={searchResult}
+              searchValue={searchValue}
+              closeDetails={closeDetails}
+              getDetailsData={getDetailsData}
+            />
+            {!isLoading && (
+              <PagginationButtons
+                totalPages={totalPages}
+                currentPage={currentPage}
+              />
+            )}
+          </SearchWrapper>
+        }
+      >
         <Route
           path={`details/:id`}
           element={

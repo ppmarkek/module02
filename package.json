@@ -19,7 +19,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run precommit"
+      "pre-commit": "npm run precommit",
+      "pre-push": "npm test"
     }
   },
   "dependencies": {
@@ -45,6 +46,7 @@
     "@typescript-eslint/eslint-plugin": "^5.22.0",
     "@typescript-eslint/parser": "^5.22.0",
     "@vitejs/plugin-react": "^4.0.3",
+    "axios-mock-adapter": "^1.22.0",
     "babel-jest": "^29.7.0",
     "eslint": "^8.52.0",
     "eslint-config-prettier": "^8.5.0",
