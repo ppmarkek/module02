@@ -1,0 +1,162 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Details Component renders correctly 1`] = `
+{
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <div
+        class="wrapper"
+      >
+        <div
+          class="search"
+        >
+          <input
+            data-testid="search-input"
+            value="test input"
+          />
+          <button
+            data-testid="search-button"
+            id="searchButton"
+          >
+            Search
+          </button>
+          <button
+            data-testid="error-input"
+            id="errorButton"
+          >
+            Throw Error
+          </button>
+          <div
+            class="requestSize"
+          >
+            <input
+              value="10"
+            />
+            <button>
+              Items shown per page
+            </button>
+          </div>
+        </div>
+        <button
+          data-testid="test-button-1"
+        >
+          Test Input
+        </button>
+        <button
+          data-testid="test-button-2"
+        >
+          Test Search
+        </button>
+        <button
+          data-testid="test-button-3"
+        >
+          Test Result
+        </button>
+      </div>
+    </div>
+  </body>,
+  "container": <div>
+    <div
+      class="wrapper"
+    >
+      <div
+        class="search"
+      >
+        <input
+          data-testid="search-input"
+          value="test input"
+        />
+        <button
+          data-testid="search-button"
+          id="searchButton"
+        >
+          Search
+        </button>
+        <button
+          data-testid="error-input"
+          id="errorButton"
+        >
+          Throw Error
+        </button>
+        <div
+          class="requestSize"
+        >
+          <input
+            value="10"
+          />
+          <button>
+            Items shown per page
+          </button>
+        </div>
+      </div>
+      <button
+        data-testid="test-button-1"
+      >
+        Test Input
+      </button>
+      <button
+        data-testid="test-button-2"
+      >
+        Test Search
+      </button>
+      <button
+        data-testid="test-button-3"
+      >
+        Test Result
+      </button>
+    </div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;

@@ -1,0 +1,194 @@
+.wrapper {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  align-items: center;
+}
+
+.search {
+  height: 5%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.search input {
+  all: unset;
+  padding: 0px 10px;
+  border-radius: 15px 0px 0px 15px;
+  height: 40px;
+  width: 500px;
+  border: 1px solid #8083a3;
+  transition: all 0.5s;
+}
+
+.search input:hover {
+  border: 1px solid #6b59cc;
+}
+
+.search input:focus {
+  border: 1px solid #6b59cc;
+}
+
+#searchButton {
+  height: 42px;
+  cursor: pointer;
+  border: 1px solid #8083a3;
+  border-left: unset;
+  background: #fff;
+  color: #000;
+  transition: all 0.5s;
+}
+
+#searchButton:hover {
+  background: #6b59cc;
+  color: #fff;
+}
+
+#errorButton {
+  height: 42px;
+  cursor: pointer;
+  border-radius: 0px 15px 15px 0px;
+  border: 1px solid #e60606;
+  border-left: unset;
+  background: #fff;
+  color: #000;
+  transition: all 0.5s;
+}
+
+#errorButton:hover {
+  background: #e60606;
+  color: #fff;
+}
+
+.result {
+  height: 80%;
+  width: 50%;
+  border-radius: 15px;
+  background: #f8f9fc;
+  overflow: auto;
+  padding: 10px;
+  display: flex;
+}
+
+.fullResult {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.fiftyPercentResult {
+  width: 50%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.Cart {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 200px;
+  height: 300px;
+  cursor: pointer;
+}
+
+.pagination {
+  display: flex;
+  gap: 5px;
+}
+
+.paginationButton {
+  all: unset;
+  width: 30px;
+  height: 30px;
+  border: 1px solid #8083a3;
+  border-radius: 5px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.5s;
+}
+
+.paginationButton:hover {
+  border: 1px solid #6b59cc;
+}
+
+.activePaginationButton {
+  all: unset;
+  width: 30px;
+  height: 30px;
+  border: 1px solid #6b59cc;
+  background-color: #6b59cc;
+  color: #fff;
+  border-radius: 5px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.5s;
+}
+
+.activePaginationButton:hover {
+  border: 1px solid #8083a3;
+  background-color: #fff;
+  color: #000;
+}
+
+.requestSize {
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 20px;
+}
+
+.requestSize button {
+  height: 42px;
+  cursor: pointer;
+  border: 1px solid #8083a3;
+  border-left: unset;
+  border-radius: 0px 15px 15px 0px;
+  background: #fff;
+  color: #000;
+  transition: all 0.5s;
+}
+
+.requestSize button:hover {
+  background: #6b59cc;
+  color: #fff;
+}
+
+.requestSize input {
+  all: unset;
+  padding: 0px 10px;
+  border-radius: 15px 0px 0px 15px;
+  height: 40px;
+  width: 80px;
+  border: 1px solid #8083a3;
+  transition: all 0.5s;
+}
+
+.RightCart {
+  display: flex;
+  justify-content: center;
+  width: 50%;
+}
+
+#close {
+  all: unset;
+  height: 30px;
+  width: 30px;
+  border-radius: 5px;
+  border: 1px solid #8083a3;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.5s;
+}
+
+#close:hover {
+  border-color: #6b59cc;
+  background: #6b59cc;
+  color: #fff;
+}
