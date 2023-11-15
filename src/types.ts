@@ -1,25 +1,34 @@
-import { Dispatch, SetStateAction } from 'react';
+import React from 'react';
 
-export type Results = {
-  updatedAt: string;
-  createdAt: string;
-  mass: string;
-  height: string;
+export type Result = {
   name: string;
-  url: string;
+  height: string;
+  mass: string;
+  createdAt: string;
+  updatedAt: string;
   id: string;
+  url: string;
+  category?: string;
 };
 
-export interface SearchResult {
+export type Results = {
+  results: Result[];
   totalPages: number;
-  results: Results[];
-}
+  totalItems?: number;
+  currentPage?: number;
+  category?: string;
+};
 
-export type AppContextType = {
-  inputValue: string;
-  setInputValue: Dispatch<SetStateAction<string>>;
-  searchResult: SearchResult | null;
-  setSearchResult: Dispatch<SetStateAction<SearchResult | null>>;
-  detailsResult: Results | undefined;
-  setDetailsResult: Dispatch<SetStateAction<Results | undefined>>;
+export type OutletType = {
+  isLoading: boolean;
+  requestResults: Results;
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+export type ComponentsReducer = {
+  details: Result;
+  componentsReducer: ComponentsReducer;
+  searchResult: string;
+  results: Result[];
+  isLoading: boolean;
 };

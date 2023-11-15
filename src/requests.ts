@@ -1,25 +1,34 @@
 import axios from 'axios';
 
-const API_URL = 'https://backend.dreamdev.lv/api';
+const API_URL = 'https://backend.dreamdev.lv';
 
-export const fetchAllData = async ({
-  inputValue,
-  page,
-  size,
+export const getAllRequestedResults = async ({
+  searchCriteria,
+  page = '1',
+  size = '10',
 }: {
-  inputValue: string;
-  page: number;
-  size: number;
+  searchCriteria: string;
+  page?: string;
+  size?: string;
 }) => {
-  await axios.get(`${API_URL}/${inputValue}/?page=${page}&size=${size}`);
+  const request = await axios.get(
+    `${API_URL}/api/${searchCriteria}/?page=${page}&size=${size}`
+  );
+  return request.data;
 };
 
-export const fetchDataById = async ({
+export const getCategories = async () => {
+  const request = await axios.get(API_URL);
+  return request.data;
+};
+
+export const getDetailsById = async ({
   id,
   inputValue,
 }: {
   id: string;
   inputValue: string;
 }) => {
-  await axios.get(`${API_URL}/${inputValue}/${id}`);
+  const request = await axios.get(`${API_URL}/api/${inputValue}/${id}`);
+  return request.data;
 };
