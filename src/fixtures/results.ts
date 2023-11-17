@@ -1,3 +1,5 @@
+import { AppState } from '../types';
+
 export const resultsMock = {
   totalPages: 1,
   totalItems: 2,
@@ -21,4 +23,26 @@ export const resultsMock = {
       url: 'https://url-2.com',
     },
   ],
+};
+
+export const useSearchHookMock = {
+  requestResults: resultsMock,
+  isLoading: false,
+  isDetailsLoading: false,
+  details: resultsMock.results[0],
+  searchResult: 'people',
+  isShowDetails: false,
+  isError: false,
+};
+
+export const appStoreMock: AppState = {
+  componentsReducer: {
+    details: resultsMock.results[0],
+    searchResult: 'people',
+    results: resultsMock,
+    isLoading: false,
+    isDetailsLoading: false,
+    isShowDetails: false,
+    isError: false,
+  },
 };

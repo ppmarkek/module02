@@ -1,62 +1,86 @@
 import React, { useEffect, useState } from 'react';
-import { ComponentsReducer } from '../../types';
-import { getAllRequestedResults } from '../../requests';
 import { useSearchParams } from 'react-router-dom';
 import './styles.css';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import {
-  setLoading,
+  setIsError,
   setResults,
   setSearchResult,
 } from '../../redux/componentsReducer';
+import { useSearch } from '../../useSearch';
+import {
+  useGetAllRequestedResultsQuery,
+  useGetCategoriesQuery,
+} from '../../redux/apiService';
 
 export const SearchBar = () => {
   const dispatch = useDispatch();
-  const savedCriteria = useSelector(
-    (state: ComponentsReducer) => state.componentsReducer.searchResult
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [inputValue, setInputValue] = useState('');
+  const [refreshPage, setRefreshPage] = useState(true);
+  const [itemsPerPage, setItemsPerPage] = useState(
+    searchParams.get('size') ?? '10'
   );
 
-  const [searchParams, setSearchParams] = useSearchParams();
+  const { searchResult } = useSearch();
 
-  const [inputValue, setInputValue] = useState(savedCriteria ?? '');
-  const [itemsPerPage, setItemsPerPage] = useState('10');
+  useEffect(() => {
+    setInputValue(searchResult ?? '');
+  }, [searchResult]);
 
-  const currentPageQuery = searchParams.get('page');
-  const currentSizeQuery = searchParams.get('size');
+  const {
+    data: categoriesData,
+    isFetching: isFetchingCategories,
+    refetch: refetchCategories,
+  } = useGetCategoriesQuery(undefined, {
+    skip: inputValue !== '',
+  });
+
+  const {
+    data: requestData,
+    error: requestError,
+    refetch: refetchRequestedResults,
+  } = useGetAllRequestedResultsQuery(
+    {
+      searchCriteria: inputValue,
+      size: itemsPerPage,
+      page: searchParams.get('page') ?? '1',
+    },
+    { skip: !inputValue }
+  );
 
   const handleSearch = () => {
-    dispatch(setLoading(true));
     dispatch(setSearchResult(inputValue));
-    setSearchParams({
-      ...searchParams,
-      page: (0).toString(),
-      size: parseInt(itemsPerPage),
-    });
-    getAllRequestedResults({
-      searchCriteria: savedCriteria?.length ? savedCriteria : inputValue,
-      size: currentSizeQuery ?? itemsPerPage,
-      page: currentPageQuery ?? '1',
-    }).then((response) => {
-      dispatch(setResults(response));
-      dispatch(setLoading(false));
-    });
-  };
-
-  const throwError = () => {
-    throw new Error('Intentional error for testing ErrorBoundary');
+    const newSearchParams = new URLSearchParams();
+    newSearchParams.set('page', '1');
+    newSearchParams.set('size', itemsPerPage);
+    setSearchParams(newSearchParams);
+    if (inputValue) {
+      refetchRequestedResults().then((response) => {
+        if (response.data && !response.error) {
+          dispatch(setIsError(false));
+          dispatch(setResults(response.data));
+        }
+      });
+    } else {
+      refetchCategories().then((response) => {
+        dispatch(setIsError(true));
+        dispatch(setResults(response.data));
+      });
+    }
   };
 
   useEffect(() => {
-    dispatch(setLoading(true));
-    getAllRequestedResults({
-      searchCriteria: inputValue,
-      size: currentSizeQuery ?? itemsPerPage,
-      page: currentPageQuery ?? '1',
-    }).then((response) => {
-      dispatch(setResults(response));
-      dispatch(setLoading(false));
-    });
-  }, [currentPageQuery, itemsPerPage]);
+    refreshPage == true &&
+      inputValue === '' &&
+      refetchCategories().then((response) => {
+        if (response.data && !response.error) {
+          dispatch(setIsError(true));
+          setRefreshPage(false);
+          dispatch(setResults(response.data));
+        }
+      });
+  }, [requestError, requestData, categoriesData, isFetchingCategories]);
 
   return (
     <div className="searchInputsWrapper">
@@ -67,14 +91,11 @@ export const SearchBar = () => {
         <input
           name="searchInput"
           className="searchInput"
-          defaultValue={inputValue}
-          onChange={(window) => setInputValue(window.target.value)}
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
         />
-        <button className="searchButton" onClick={() => handleSearch()}>
-          show
-        </button>
-        <button onClick={() => throwError()} id="errorButton">
-          Error
+        <button className="searchButton" onClick={handleSearch}>
+          Show
         </button>
       </div>
       <div className="searchSizer" data-testid="searchSizer">
@@ -83,10 +104,11 @@ export const SearchBar = () => {
         </label>
         <input
           name="searchSizeInput"
-          defaultValue={itemsPerPage}
-          onChange={(window) => setItemsPerPage(window.target.value)}
+          className="searchSizeInput"
+          value={itemsPerPage}
+          onChange={(e) => setItemsPerPage(e.target.value)}
         />
-        <button onClick={() => handleSearch()}>show</button>
+        <button onClick={handleSearch}>Show</button>
       </div>
     </div>
   );

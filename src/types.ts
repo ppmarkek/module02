@@ -17,6 +17,7 @@ export type Results = {
   totalItems?: number;
   currentPage?: number;
   category?: string;
+  itemsPerPage?: string;
 };
 
 export type OutletType = {
@@ -25,10 +26,16 @@ export type OutletType = {
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
+export type AppState = {
+  componentsReducer: ComponentsReducer;
+};
+
 export type ComponentsReducer = {
   details: Result;
-  componentsReducer: ComponentsReducer;
   searchResult: string;
-  results: Result[];
+  results: Results;
   isLoading: boolean;
+  isDetailsLoading: boolean;
+  isShowDetails: boolean;
+  isError: boolean;
 };

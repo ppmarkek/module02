@@ -6,6 +6,9 @@ const initialState = {
   details: {} as Result,
   searchResult: '',
   isLoading: false,
+  isDetailsLoading: false,
+  isShowDetails: false,
+  isError: false,
 };
 
 const loginSlice = createSlice({
@@ -24,9 +27,25 @@ const loginSlice = createSlice({
     setLoading: (state, { payload }) => {
       state.isLoading = payload;
     },
+    setIsDetailsLoading: (state, { payload }) => {
+      state.isDetailsLoading = payload;
+    },
+    setIsShowDetails: (state, { payload }) => {
+      state.isShowDetails = payload;
+    },
+    setIsError: (state, { payload }) => {
+      state.isError = payload;
+    },
   },
 });
 
-export const { setResults, setSearchResult, setDetails, setLoading } =
-  loginSlice.actions;
+export const {
+  setResults,
+  setSearchResult,
+  setDetails,
+  setLoading,
+  setIsDetailsLoading,
+  setIsShowDetails,
+  setIsError,
+} = loginSlice.actions;
 export default loginSlice.reducer;

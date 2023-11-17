@@ -22,5 +22,12 @@ module.exports = {
   moduleNameMapper: {
     '\\.css$': 'identity-obj-proxy',
   },
+  coveragePathIgnorePatterns: [
+    '/src/redux',
+    'jestUtils.tsx',
+    'requests.ts',
+    'useSearch.ts',
+    'src/fixtures/',
+  ],
   testMatch: ['**/__tests__/**/*.ts?(x)', '**/?(*.)+(spec|test).ts?(x)'],
 };

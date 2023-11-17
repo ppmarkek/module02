@@ -1,24 +1,17 @@
-import { useState } from 'react';
 import { SearchBar } from './components/SearchBar/SearchBar';
 import { SearchResults } from './components/SearchResults/SearchResults';
 import { Paginator } from './components/Paginator/Paginator';
-import { ComponentsReducer } from './types';
 import { Outlet } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSearch } from './useSearch';
 
 export const Search = () => {
-  const requestResults = useSelector(
-    (state: ComponentsReducer) => state.componentsReducer.results
-  );
-  const isLoading = useSelector(
-    (state: ComponentsReducer) => state.componentsReducer.isLoading
-  );
+  const { requestResults, isLoading } = useSearch();
 
   return (
     <div className="root">
       <SearchBar />
       <SearchResults />
-      {requestResults.results.length && (
+      {requestResults?.results?.length && (
         <Paginator
           pages={requestResults.totalPages}
           currentPage={requestResults.currentPage}
