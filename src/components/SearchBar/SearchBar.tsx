@@ -110,7 +110,11 @@ export const SearchBar = () => {
         >
           Show
         </button>
-        <button onClick={throwError} data-testid="show-error-button">
+        <button
+          onClick={throwError}
+          data-testid="show-error-button"
+          id="errorButton"
+        >
           Test Error
         </button>
       </div>
