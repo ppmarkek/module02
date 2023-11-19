@@ -5,7 +5,7 @@ import { Outlet } from 'react-router-dom';
 import { useSearch } from './useSearch';
 
 export const Search = () => {
-  const { requestResults, isLoading } = useSearch();
+  const { requestResults } = useSearch();
 
   return (
     <div className="root">
@@ -13,10 +13,8 @@ export const Search = () => {
       <SearchResults />
       {requestResults?.results?.length && (
         <Paginator
-          pages={requestResults.totalPages}
           currentPage={requestResults.currentPage}
           totalPages={requestResults.totalPages}
-          isLoading={isLoading}
         />
       )}
       <Outlet context={requestResults} />

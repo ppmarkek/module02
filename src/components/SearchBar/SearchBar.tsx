@@ -28,13 +28,10 @@ export const SearchBar = () => {
     setInputValue(searchResult ?? '');
   }, [searchResult]);
 
-  const {
-    data: categoriesData,
-    isFetching: isFetchingCategories,
-    refetch: refetchCategories,
-  } = useGetCategoriesQuery(undefined, {
-    skip: inputValue !== '',
-  });
+  const { data: categoriesData, refetch: refetchCategories } =
+    useGetCategoriesQuery(undefined, {
+      skip: inputValue !== '',
+    });
 
   const {
     data: requestData,
@@ -44,7 +41,7 @@ export const SearchBar = () => {
     {
       searchCriteria: inputValue,
       size: itemsPerPage,
-      page: searchParams.get('page') ?? '1',
+      page: searchParams.get('page') ?? '0',
     },
     { skip: !inputValue }
   );
@@ -52,7 +49,7 @@ export const SearchBar = () => {
   const handleSearch = () => {
     dispatch(setSearchResult(inputValue));
     const newSearchParams = new URLSearchParams();
-    newSearchParams.set('page', '1');
+    newSearchParams.set('page', '0');
     newSearchParams.set('size', itemsPerPage);
     setSearchParams(newSearchParams);
     if (inputValue) {
@@ -60,11 +57,13 @@ export const SearchBar = () => {
         if (response.data && !response.error) {
           dispatch(setIsError(false));
           dispatch(setResults(response.data));
+        } else {
+          dispatch(setIsError(true));
         }
       });
     } else {
+      dispatch(setIsError(true));
       refetchCategories().then((response) => {
-        dispatch(setIsError(true));
         dispatch(setResults(response.data));
       });
     }
@@ -78,9 +77,14 @@ export const SearchBar = () => {
           dispatch(setIsError(true));
           setRefreshPage(false);
           dispatch(setResults(response.data));
+        } else {
+          dispatch(setIsError(true));
+          refetchCategories().then((response) => {
+            dispatch(setResults(response.data));
+          });
         }
       });
-  }, [requestError, requestData, categoriesData, isFetchingCategories]);
+  }, [requestError, requestData, categoriesData]);
 
   return (
     <div className="searchInputsWrapper">

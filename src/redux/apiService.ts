@@ -1,5 +1,4 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { Results } from '../types';
 
 export const apiService = createApi({
   reducerPath: 'apiService',
@@ -16,7 +15,7 @@ export const apiService = createApi({
         size?: string;
       }) => `/api/${searchCriteria}/?page=${page}&size=${size}`,
     }),
-    getCategories: builder.query<Results, void>({
+    getCategories: builder.query({
       query: () => '/',
     }),
     getDetailsById: builder.query({
