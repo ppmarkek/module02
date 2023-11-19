@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { combineReducers } from 'redux';
 import { apiService } from './apiService';
 import componentsReducer from './componentsReducer';
+import thunk from 'redux-thunk';
 
 export const reducer = combineReducers({
   componentsReducer: componentsReducer,
@@ -15,5 +16,5 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: ['persist/PERSIST', 'persist/REHYDRATE'],
       },
-    }).concat(apiService.middleware),
+    }).concat(apiService.middleware, thunk),
 });

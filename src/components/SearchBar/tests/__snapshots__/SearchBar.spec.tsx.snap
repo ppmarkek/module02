@@ -1,53 +1,60 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Paginator component should render correctly 1`] = `
+exports[`SearchBar component should render correctly 1`] = `
 {
   "asFragment": [Function],
   "baseElement": <body>
     <div>
       <div
-        class="paginatorWrapper"
+        class="searchInputsWrapper"
       >
         <div
-          class="paginator"
-          data-testid="paginator"
+          class="searchBar"
+          data-testid="search-bar"
         >
-          <button
-            class="paginationButton"
-            data-testid="first-pagination-button"
+          <label
+            for="searchInput"
+            id="SearchTitle"
           >
-            &lt;
+            Search:
+          </label>
+          <input
+            class="searchInput"
+            data-testid="search-input"
+            name="searchInput"
+            value="people"
+          />
+          <button
+            class="searchButton"
+            data-testid="search-button"
+          >
+            Show
           </button>
-          <div
-            class="paginatorButton"
-          >
-            1
-          </div>
-          <div
-            class="paginatorButton"
-          >
-            2
-          </div>
-          <div
-            class="paginatorButton"
-          >
-            3
-          </div>
-          <div
-            class="paginatorButton"
-          >
-            4
-          </div>
-          <div
-            class="paginatorButton"
-          >
-            5
-          </div>
           <button
-            class="paginationButton"
-            data-testid="second-pagination-button"
+            data-testid="show-error-button"
           >
-            &gt;
+            Test Error
+          </button>
+        </div>
+        <div
+          class="searchSizer"
+          data-testid="searchSizer"
+        >
+          <label
+            for="searchSizeInput"
+            id="SearchTitle"
+          >
+            Items per page:
+          </label>
+          <input
+            class="searchSizeInput"
+            name="searchSizeInput"
+            value="10"
+          />
+          <button
+            data-testid="show-per-page-button"
+          >
+            Show
           </button>
         </div>
       </div>
@@ -55,48 +62,55 @@ exports[`Paginator component should render correctly 1`] = `
   </body>,
   "container": <div>
     <div
-      class="paginatorWrapper"
+      class="searchInputsWrapper"
     >
       <div
-        class="paginator"
-        data-testid="paginator"
+        class="searchBar"
+        data-testid="search-bar"
       >
-        <button
-          class="paginationButton"
-          data-testid="first-pagination-button"
+        <label
+          for="searchInput"
+          id="SearchTitle"
         >
-          &lt;
+          Search:
+        </label>
+        <input
+          class="searchInput"
+          data-testid="search-input"
+          name="searchInput"
+          value="people"
+        />
+        <button
+          class="searchButton"
+          data-testid="search-button"
+        >
+          Show
         </button>
-        <div
-          class="paginatorButton"
-        >
-          1
-        </div>
-        <div
-          class="paginatorButton"
-        >
-          2
-        </div>
-        <div
-          class="paginatorButton"
-        >
-          3
-        </div>
-        <div
-          class="paginatorButton"
-        >
-          4
-        </div>
-        <div
-          class="paginatorButton"
-        >
-          5
-        </div>
         <button
-          class="paginationButton"
-          data-testid="second-pagination-button"
+          data-testid="show-error-button"
         >
-          &gt;
+          Test Error
+        </button>
+      </div>
+      <div
+        class="searchSizer"
+        data-testid="searchSizer"
+      >
+        <label
+          for="searchSizeInput"
+          id="SearchTitle"
+        >
+          Items per page:
+        </label>
+        <input
+          class="searchSizeInput"
+          name="searchSizeInput"
+          value="10"
+        />
+        <button
+          data-testid="show-per-page-button"
+        >
+          Show
         </button>
       </div>
     </div>

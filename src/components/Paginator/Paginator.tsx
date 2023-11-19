@@ -45,7 +45,6 @@ export const Paginator = ({ currentPage, totalPages }: PaginatorProps) => {
   };
 
   useEffect(() => {
-    // Обработка данных из запроса
     if (!isLoading && requestData) {
       dispatch(setResults(requestData));
       dispatch(setLoading(false));

@@ -2,11 +2,45 @@ import { renderWithRedux } from '../../../jestUtils';
 import { appStoreMock, useSearchHookMock } from '../../../fixtures/results';
 import * as useSearch from '../../../useSearch';
 import '@testing-library/jest-dom';
-import * as router from 'react-router';
-import { fireEvent, screen } from '@testing-library/react';
+import { fireEvent, screen, waitFor } from '@testing-library/react';
 import { Paginator } from '../Paginator';
 
-const navigate = jest.fn();
+jest.mock('../../../redux/apiService', () => {
+  const mockData = {
+    results: [
+      { id: 1, title: 'Test Item 1' },
+      { id: 2, title: 'Test Item 2' },
+    ],
+  };
+
+  const mockCategoriesData = {
+    categories: ['Category 1', 'Category 2', 'Category 3'],
+  };
+  const originalModule = jest.requireActual('../../../redux/apiService');
+
+  const mockUseGetAllRequestedResultsQuery = jest.fn().mockReturnValue({
+    data: mockData,
+    refetch: jest.fn().mockResolvedValue({ data: mockData }),
+  });
+
+  const mockUseGetCategoriesQuery = jest.fn().mockReturnValue({
+    data: mockCategoriesData,
+    refetch: jest.fn().mockResolvedValue({ data: mockCategoriesData }),
+  });
+
+  return {
+    ...originalModule,
+    useGetAllRequestedResultsQuery: mockUseGetAllRequestedResultsQuery,
+    useGetCategoriesQuery: mockUseGetCategoriesQuery,
+  };
+});
+
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useSearchParams: jest
+    .fn()
+    .mockReturnValue([new URLSearchParams(), jest.fn()]),
+}));
 
 describe('Paginator component', () => {
   it('should render correctly', () => {
@@ -41,7 +75,7 @@ describe('Paginator component', () => {
     );
 
     expect(
-      getByTestId('page-button-previous').closest('button')
+      getByTestId('first-pagination-button').closest('button')
     ).toHaveAttribute('disabled');
   });
 
@@ -54,22 +88,51 @@ describe('Paginator component', () => {
       <Paginator totalPages={5} currentPage={4} />
     );
 
-    expect(getByTestId('page-button-next').closest('button')).toHaveAttribute(
-      'disabled'
-    );
+    expect(
+      getByTestId('second-pagination-button').closest('button')
+    ).toHaveAttribute('disabled');
   });
 
-  it('should switch page on click', () => {
-    jest.spyOn(router, 'useNavigate').mockImplementation(() => navigate);
+  it('should correctly handle page selection', async () => {
+    const mockData = {
+      results: [
+        { id: 1, title: 'Test Item 1' },
+        { id: 2, title: 'Test Item 2' },
+      ],
+    };
+
+    const mockSetSearchParams = jest.fn();
+    jest.mock('react-router-dom', () => ({
+      ...jest.requireActual('react-router-dom'),
+      useSearchParams: jest
+        .fn()
+        .mockReturnValue([new URLSearchParams(), mockSetSearchParams]),
+    }));
+
+    const mockRefetchRequestedResults = jest.fn();
+    jest.mock('../../../redux/apiService', () => ({
+      ...jest.requireActual('../../../redux/apiService'),
+      useGetAllRequestedResultsQuery: jest.fn().mockReturnValue({
+        data: mockData,
+        refetch: mockRefetchRequestedResults,
+      }),
+    }));
+
     jest
       .spyOn(useSearch, 'useSearch')
       .mockImplementation(() => useSearchHookMock);
 
     const { getByTestId } = renderWithRedux(
-      <Paginator totalPages={5} currentPage={4} />
+      <Paginator totalPages={5} currentPage={2} />
     );
-    fireEvent.click(getByTestId('page-button-2'));
 
-    expect(navigate).toHaveBeenCalledWith('?page=2', undefined);
+    fireEvent.click(getByTestId('first-pagination-button'));
+
+    await waitFor(() => {
+      expect(mockRefetchRequestedResults).toHaveBeenCalled();
+      expect(mockSetSearchParams).toHaveBeenCalledWith(
+        expect.any(URLSearchParams)
+      );
+    });
   });
 });

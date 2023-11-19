@@ -69,6 +69,10 @@ export const SearchBar = () => {
     }
   };
 
+  const throwError = () => {
+    throw new Error('Intentional error for testing ErrorBoundary');
+  };
+
   useEffect(() => {
     refreshPage == true &&
       inputValue === '' &&
@@ -97,9 +101,17 @@ export const SearchBar = () => {
           className="searchInput"
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
+          data-testid="search-input"
         />
-        <button className="searchButton" onClick={handleSearch}>
+        <button
+          className="searchButton"
+          onClick={handleSearch}
+          data-testid="search-button"
+        >
           Show
+        </button>
+        <button onClick={throwError} data-testid="show-error-button">
+          Test Error
         </button>
       </div>
       <div className="searchSizer" data-testid="searchSizer">
@@ -112,7 +124,9 @@ export const SearchBar = () => {
           value={itemsPerPage}
           onChange={(e) => setItemsPerPage(e.target.value)}
         />
-        <button onClick={handleSearch}>Show</button>
+        <button onClick={handleSearch} data-testid="show-per-page-button">
+          Show
+        </button>
       </div>
     </div>
   );
