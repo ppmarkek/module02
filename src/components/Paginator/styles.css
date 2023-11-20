@@ -1,0 +1,68 @@
+.paginator {
+  display: flex;
+  gap: 5px;
+}
+
+.paginatorButton {
+  all: unset;
+  width: 30px;
+  height: 30px;
+  border: 1px solid #8083a3;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.5s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.paginatorButton:hover {
+  border: 1px solid #6b59cc;
+}
+
+.activePaginatorButton {
+  all: unset;
+  width: 30px;
+  height: 30px;
+  border: 1px solid #6b59cc;
+  background-color: #6b59cc;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.5s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.activePaginatorButton:hover {
+  border: 1px solid #8083a3;
+  background-color: #fff;
+  color: #000;
+}
+
+.paginatorWrapper {
+  height: 50px;
+  width: 100%;
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  align-items: center;
+}
+
+.paginationButton {
+  all: unset;
+  width: 30px;
+  height: 30px;
+  border: 1px solid #8083a3;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.5s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.paginationButton:hover {
+  border: 1px solid #6b59cc;
+}
