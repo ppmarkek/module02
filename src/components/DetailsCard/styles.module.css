@@ -1,4 +1,4 @@
-.details-card {
+.detailsCard {
   position: absolute;
   right: 0;
   top: 0;
@@ -10,7 +10,7 @@
   z-index: 1000;
 }
 
-.close-details {
+.closeDetails {
   position: absolute;
   top: 0;
   left: 0;
@@ -21,7 +21,7 @@
   z-index: 999;
 }
 
-.close-details-button {
+.closeDetailsButton {
   margin-top: 5px;
   height: 42px;
   width: 42px;
@@ -33,7 +33,7 @@
   transition: all 0.5s;
 }
 
-.close-details-button:hover {
+.closeDetailsButton:hover {
   background: #e60606;
   color: #fff;
 }

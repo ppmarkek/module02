@@ -1,21 +1,25 @@
 import { useDispatch } from 'react-redux';
-import './styles.css';
+import styles from './styles.module.css';
 import { setIsShowDetails } from '../../redux/componentsReducer';
 import { useSearch } from '../../useSearch';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/router';
 
 export const DetailsCard = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const router = useRouter();
   const { details, isDetailsLoading, isShowDetails } = useSearch();
+
   const closeDetails = () => {
-    navigate(`/`);
+    router.push('/');
     dispatch(setIsShowDetails(false));
   };
+
+  console.log(isShowDetails);
+
   return (
     isShowDetails && (
       <div>
-        <div className="details-card" data-testid="details-card">
+        <div className={styles.detailsCard} data-testid="details-card">
           {isDetailsLoading ? (
             <h3 data-testid="loading-details">Loading...</h3>
           ) : (
@@ -30,7 +34,7 @@ export const DetailsCard = () => {
             </div>
           )}
           <button
-            className="close-details-button"
+            className={styles.closeDetailsButton}
             data-testid="close-details"
             onClick={() => closeDetails()}
           >
@@ -40,7 +44,7 @@ export const DetailsCard = () => {
 
         <div
           data-testid="details-shadow-background"
-          className="close-details"
+          className={styles.closeDetails}
           onClick={() => closeDetails()}
         />
       </div>

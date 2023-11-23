@@ -1,7 +1,7 @@
-import { useNavigate } from 'react-router-dom';
-import { Result } from '../../types';
-import './styles.css';
+import React from 'react';
 import { useDispatch } from 'react-redux';
+import { Result } from '../../types';
+import styles from './styles.module.css';
 import {
   setDetails,
   setIsDetailsLoading,
@@ -10,31 +10,34 @@ import {
 import { getDetailsById } from '../../requests';
 import { useSearch } from '../../useSearch';
 
-export const SearchItemCard = ({
-  details,
-  number,
-}: {
+type SearchItemCardProps = {
   details: Result;
   number: number;
-}) => {
-  const navigate = useNavigate();
+};
+
+export const SearchItemCard = ({ details, number }: SearchItemCardProps) => {
   const dispatch = useDispatch();
   const { searchResult } = useSearch();
-  const handleClick = () => {
+
+  const handleClick = async () => {
     dispatch(setIsDetailsLoading(true));
-    navigate(`/details/${details.id}`);
     dispatch(setIsShowDetails(true));
-    getDetailsById({ id: details.id, inputValue: searchResult }).then(
-      (response) => {
-        dispatch(setDetails(response));
-        dispatch(setIsDetailsLoading(false));
-      }
-    );
+    try {
+      const response = await getDetailsById({
+        id: details.id,
+        inputValue: searchResult,
+      });
+      dispatch(setDetails(response));
+      dispatch(setIsDetailsLoading(false));
+    } catch (error) {
+      console.error(error);
+    }
   };
+
   return (
     <div
       onClick={() => handleClick()}
-      className="searchItemCard"
+      className={styles.searchItemCard}
       data-testid={`search-item-card-${number}`}
     >
       <h3>Name: {details.name}</h3>

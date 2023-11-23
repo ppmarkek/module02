@@ -1,6 +1,6 @@
 import { SearchItemCard } from '../SearchItemCard/SearchItemCard';
 import { Result } from '../../types';
-import './styles.css';
+import styles from './styles.module.css';
 import { useSearch } from '../../useSearch';
 
 export const SearchResults = () => {
@@ -12,9 +12,9 @@ export const SearchResults = () => {
   ));
 
   return (
-    <div className="searchResultsWrapper">
+    <div className={styles.searchResultsWrapper}>
       <div
-        className={`searchResults ${isError && 'error'}`}
+        className={`${styles.searchResults} ${isError ? styles.error : ''}`}
         data-testid="search-results"
       >
         {isLoading && <h3 data-testid="loading">Loading...</h3>}

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
-import './styles.css';
+import styles from './styles.module.css';
 import { useDispatch } from 'react-redux';
 import {
   setIsError,
@@ -12,14 +11,16 @@ import {
   useGetAllRequestedResultsQuery,
   useGetCategoriesQuery,
 } from '../../redux/apiService';
+import { useRouter } from 'next/router';
 
 export const SearchBar = () => {
   const dispatch = useDispatch();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const router = useRouter();
   const [inputValue, setInputValue] = useState('');
   const [refreshPage, setRefreshPage] = useState(true);
+
   const [itemsPerPage, setItemsPerPage] = useState(
-    searchParams.get('size') ?? '10'
+    typeof router.query.size === 'string' ? router.query.size : '10'
   );
 
   const { searchResult } = useSearch();
@@ -41,17 +42,17 @@ export const SearchBar = () => {
     {
       searchCriteria: inputValue,
       size: itemsPerPage,
-      page: searchParams.get('page') ?? '0',
+      page: typeof router.query.page === 'string' ? router.query.page : '0',
     },
     { skip: !inputValue }
   );
 
   const handleSearch = () => {
     dispatch(setSearchResult(inputValue));
-    const newSearchParams = new URLSearchParams();
-    newSearchParams.set('page', '0');
-    newSearchParams.set('size', itemsPerPage);
-    setSearchParams(newSearchParams);
+    router.push({
+      pathname: router.pathname,
+      query: { page: '0', size: itemsPerPage },
+    });
     if (inputValue) {
       refetchRequestedResults().then((response) => {
         if (response.data && !response.error) {
@@ -91,20 +92,20 @@ export const SearchBar = () => {
   }, [requestError, requestData, categoriesData]);
 
   return (
-    <div className="searchInputsWrapper">
-      <div className="searchBar" data-testid="search-bar">
-        <label htmlFor="searchInput" id="SearchTitle">
+    <div className={styles.searchInputsWrapper}>
+      <div className={styles.searchBar} data-testid="search-bar">
+        <label htmlFor="searchInput" className={styles.searchTitle}>
           Search:
         </label>
         <input
           name="searchInput"
-          className="searchInput"
+          className={styles.searchInput}
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
           data-testid="search-input"
         />
         <button
-          className="searchButton"
+          className={styles.searchButton}
           onClick={handleSearch}
           data-testid="search-button"
         >
@@ -113,18 +114,18 @@ export const SearchBar = () => {
         <button
           onClick={throwError}
           data-testid="show-error-button"
-          id="errorButton"
+          className={styles.errorButton}
         >
           Test Error
         </button>
       </div>
-      <div className="searchSizer" data-testid="searchSizer">
+      <div className={styles.searchSizer} data-testid="searchSizer">
         <label htmlFor="searchSizeInput" id="SearchTitle">
           Items per page:
         </label>
         <input
           name="searchSizeInput"
-          className="searchSizeInput"
+          className={styles.searchSizeInput}
           value={itemsPerPage}
           onChange={(e) => setItemsPerPage(e.target.value)}
         />

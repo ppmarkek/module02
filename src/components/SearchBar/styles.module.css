@@ -5,7 +5,7 @@
   align-items: center;
 }
 
-#SearchTitle {
+.SearchTitle {
   padding-right: 10px;
 }
 
@@ -81,7 +81,7 @@
   justify-content: center;
 }
 
-#errorButton {
+.errorButton {
   height: 42px;
   cursor: pointer;
   border-radius: 0px 15px 15px 0px;
@@ -91,7 +91,7 @@
   color: #000;
   transition: all 0.5s;
 }
-#errorButton:hover {
+.errorButton:hover {
   background: #e60606;
   color: #fff;
 }

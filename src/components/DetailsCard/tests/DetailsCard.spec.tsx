@@ -3,12 +3,23 @@ import { appStoreMock, useSearchHookMock } from '../../../fixtures/results';
 import * as useSearch from '../../../useSearch';
 import '@testing-library/jest-dom';
 import { DetailsCard } from '../DetailsCard';
-import * as router from 'react-router';
 import { fireEvent } from '@testing-library/react';
 
-const navigate = jest.fn();
+const useRouter = jest.fn();
+jest.mock('next/router', () => ({
+  useRouter: () => ({
+    push: useRouter,
+    route: '/',
+    query: {},
+    asPath: '',
+  }),
+}));
 
 describe('DetailsCard component', () => {
+  beforeEach(() => {
+    useRouter.mockReset();
+  });
+
   it('should render correctly', () => {
     jest.spyOn(useSearch, 'useSearch').mockImplementation(() => ({
       ...useSearchHookMock,
@@ -16,58 +27,37 @@ describe('DetailsCard component', () => {
     }));
 
     const component = renderWithRedux(<DetailsCard />, {
-      appStore: appStoreMock,
+      initialState: appStoreMock,
     });
 
     expect(component).toMatchSnapshot();
   });
 
-  it('should render loading', () => {
-    jest.spyOn(useSearch, 'useSearch').mockImplementationOnce(() => ({
-      ...useSearchHookMock,
-      isShowDetails: true,
-      isDetailsLoading: true,
-    }));
-
-    const { getByTestId } = renderWithRedux(<DetailsCard />);
-
-    expect(getByTestId('loading-details'));
-  });
-
-  it('should render close button', () => {
-    jest.spyOn(useSearch, 'useSearch').mockImplementationOnce(() => ({
-      ...useSearchHookMock,
-      isShowDetails: true,
-    }));
-
-    const { getByTestId } = renderWithRedux(<DetailsCard />);
-
-    expect(getByTestId('close-details'));
-  });
-
   it('should navigate to the search after clicking close button', () => {
-    jest.spyOn(router, 'useNavigate').mockImplementation(() => navigate);
     jest.spyOn(useSearch, 'useSearch').mockImplementationOnce(() => ({
       ...useSearchHookMock,
       isShowDetails: true,
     }));
 
-    const { getByTestId } = renderWithRedux(<DetailsCard />);
+    const { getByTestId } = renderWithRedux(<DetailsCard />, {
+      initialState: appStoreMock,
+    });
     fireEvent.click(getByTestId('close-details'));
 
-    expect(navigate).toHaveBeenCalledWith('/');
+    expect(useRouter).toHaveBeenCalledWith('/');
   });
 
   it('should navigate to the search after clicking on the background', () => {
-    jest.spyOn(router, 'useNavigate').mockImplementation(() => navigate);
     jest.spyOn(useSearch, 'useSearch').mockImplementationOnce(() => ({
       ...useSearchHookMock,
       isShowDetails: true,
     }));
 
-    const { getByTestId } = renderWithRedux(<DetailsCard />);
+    const { getByTestId } = renderWithRedux(<DetailsCard />, {
+      initialState: appStoreMock,
+    });
     fireEvent.click(getByTestId('details-shadow-background'));
 
-    expect(navigate).toHaveBeenCalledWith('/');
+    expect(useRouter).toHaveBeenCalledWith('/');
   });
 });

@@ -1,48 +1,40 @@
-import { useSearchParams } from 'react-router-dom';
-import './styles.css';
-import { useGetAllRequestedResultsQuery } from '../../redux/apiService';
-import { useSearch } from '../../useSearch';
+import React, { useEffect } from 'react';
+import { useRouter } from 'next/router';
+import styles from './styles.module.css';
 import { useDispatch } from 'react-redux';
 import { setLoading, setResults } from '../../redux/componentsReducer';
-import React, { useState, useEffect } from 'react';
+import { useGetAllRequestedResultsQuery } from '../../redux/apiService';
+import { useSearch } from '../../useSearch';
 
 type PaginatorProps = {
   currentPage?: number;
   totalPages?: number;
 };
 
-export const Paginator = ({ currentPage, totalPages }: PaginatorProps) => {
+export const Paginator = ({
+  currentPage = 1,
+  totalPages = 1,
+}: PaginatorProps) => {
   const dispatch = useDispatch();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const router = useRouter();
   const { searchResult, requestResults, isLoading } = useSearch();
 
-  const [queryParams, setQueryParams] = useState({
+  const page = Array.isArray(router.query.page)
+    ? router.query.page[0]
+    : router.query.page || '1';
+
+  const queryParams = {
     searchCriteria: searchResult,
     size: requestResults.itemsPerPage?.toString() || '10',
-    page: searchParams.get('page') ?? '1',
-  });
-
-  useEffect(() => {
-    setQueryParams((qp) => ({
-      ...qp,
-      searchCriteria: searchResult,
-      size: requestResults.itemsPerPage?.toString() || '10',
-    }));
-  }, [searchResult, requestResults.itemsPerPage]);
+    page,
+  };
 
   const { data: requestData, refetch: refetchRequestedResults } =
     useGetAllRequestedResultsQuery(queryParams);
 
-  const selectPage = (page: number) => {
-    const newSearchParams = new URLSearchParams();
-    newSearchParams.set('page', page.toString());
-    newSearchParams.set('size', queryParams.size);
-    setSearchParams(newSearchParams);
-
-    setQueryParams((qp) => ({ ...qp, page: page.toString() }));
-
+  useEffect(() => {
     refetchRequestedResults();
-  };
+  }, [queryParams, refetchRequestedResults]);
 
   useEffect(() => {
     if (!isLoading && requestData) {
@@ -51,35 +43,46 @@ export const Paginator = ({ currentPage, totalPages }: PaginatorProps) => {
     }
   }, [isLoading, requestData, dispatch]);
 
+  const selectPage = (page: number) => {
+    const newQueryParams = {
+      ...router.query,
+      page: page.toString(),
+    };
+    router.push({
+      pathname: router.pathname,
+      query: newQueryParams,
+    });
+  };
+
   return (
-    <div className="paginatorWrapper">
+    <div className={styles.paginatorWrapper}>
       {!isLoading && (
-        <div className="paginator" data-testid="paginator">
+        <div className={styles.paginator} data-testid="paginator">
           <button
             onClick={() => selectPage(currentPage! - 1)}
-            data-testid="first-pagination-button"
-            className="paginationButton"
-            disabled={currentPage! <= 0}
+            data-testid="prev-pagination-button"
+            className={styles.paginationButton}
+            disabled={currentPage! <= 1}
           >
             &lt;
           </button>
-          {[...Array(totalPages).keys()].map((page, index) => (
+          {[...Array(totalPages).keys()].map((page) => (
             <div
-              key={index}
+              key={page}
               className={
-                index === currentPage
-                  ? 'activePaginatorButton'
-                  : 'paginatorButton'
+                page === currentPage
+                  ? styles.activePaginatorButton
+                  : styles.paginatorButton
               }
-              onClick={() => selectPage(index)}
+              onClick={() => selectPage(page)}
             >
               {page + 1}
             </div>
           ))}
           <button
             onClick={() => selectPage(currentPage! + 1)}
-            data-testid="second-pagination-button"
-            className="paginationButton"
+            data-testid="next-pagination-button"
+            className={styles.paginationButton}
             disabled={currentPage! >= totalPages! - 1}
           >
             &gt;
