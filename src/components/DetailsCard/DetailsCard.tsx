@@ -14,8 +14,6 @@ export const DetailsCard = () => {
     dispatch(setIsShowDetails(false));
   };
 
-  console.log(isShowDetails);
-
   return (
     isShowDetails && (
       <div>

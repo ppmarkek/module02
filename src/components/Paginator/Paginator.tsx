@@ -34,7 +34,7 @@ export const Paginator = ({
 
   useEffect(() => {
     refetchRequestedResults();
-  }, [queryParams, refetchRequestedResults]);
+  }, [refetchRequestedResults]);
 
   useEffect(() => {
     if (!isLoading && requestData) {

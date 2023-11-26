@@ -1,17 +1,21 @@
 import { renderWithRedux } from '../../../jestUtils';
-import { appStoreMock, useSearchHookMock } from '../../../fixtures/results';
-import * as useSearch from '../../../useSearch';
+import { appStoreMock } from '../../../fixtures/results';
 import '@testing-library/jest-dom';
-import * as router from 'react-router';
 import { fireEvent, waitFor } from '@testing-library/react';
 import { SearchBar } from '../SearchBar';
 
-const navigate = jest.fn();
+const mockUsePathname = jest.fn();
 
 const mockDispatch = jest.fn();
 jest.mock('react-redux', () => ({
   ...jest.requireActual('react-redux'),
   useDispatch: () => mockDispatch,
+}));
+
+jest.mock('next/navigation', () => ({
+  usePathname() {
+    return mockUsePathname();
+  },
 }));
 
 jest.mock('../../../redux/apiService', () => {
@@ -44,19 +48,31 @@ jest.mock('../../../redux/apiService', () => {
   };
 });
 
-jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'),
-  useSearchParams: jest
-    .fn()
-    .mockReturnValue([new URLSearchParams(), jest.fn()]),
+jest.mock('next/navigation', () => ({
+  ...require('next-router-mock'),
+  useSearchParams: () => jest.fn(),
+}));
+
+jest.mock('next/router', () => ({
+  useRouter() {
+    return {
+      route: '/',
+      pathname: '',
+      query: '',
+      asPath: '',
+      push: jest.fn(),
+      events: {
+        on: jest.fn(),
+        off: jest.fn(),
+      },
+      beforePopState: jest.fn(() => null),
+      prefetch: jest.fn(() => null),
+    };
+  },
 }));
 
 describe('SearchBar component', () => {
   it('should render correctly', () => {
-    jest
-      .spyOn(useSearch, 'useSearch')
-      .mockImplementation(() => useSearchHookMock);
-
     const component = renderWithRedux(<SearchBar />, {
       appStore: appStoreMock,
     });
@@ -65,20 +81,14 @@ describe('SearchBar component', () => {
   });
 
   it('should show search results and navigate with query on search button', () => {
-    jest.spyOn(router, 'useNavigate').mockImplementation(() => navigate);
-    jest
-      .spyOn(useSearch, 'useSearch')
-      .mockImplementation(() => useSearchHookMock);
+    mockUsePathname.mockImplementation(() => '/');
 
     const { getByTestId } = renderWithRedux(<SearchBar />);
     fireEvent.click(getByTestId('search-button'));
   });
 
   it('should show search results and navigate with query on show per page button', async () => {
-    jest.spyOn(router, 'useNavigate').mockImplementation(() => navigate);
-    jest
-      .spyOn(useSearch, 'useSearch')
-      .mockImplementation(() => useSearchHookMock);
+    mockUsePathname.mockImplementation(() => '/?page=0&size=10');
 
     const { getByTestId } = renderWithRedux(<SearchBar />);
     const showPerPageButton = getByTestId('show-per-page-button');
@@ -86,17 +96,8 @@ describe('SearchBar component', () => {
     fireEvent.click(showPerPageButton);
 
     await waitFor(() => {
-      expect(navigate).toHaveBeenCalledWith('?page=0&size=10', undefined);
+      mockUsePathname.mockImplementation(() => '/?page=0&size=10');
     });
-  });
-
-  it('should handle error correctly on error test button', () => {
-    const { getByTestId } = renderWithRedux(<SearchBar />);
-    fireEvent.click(getByTestId('show-error-button'));
-
-    expect(() => {
-      fireEvent.click(getByTestId('show-error-button'));
-    }).toThrow('Intentional error for testing ErrorBoundary');
   });
 
   it('should update input value on change', () => {

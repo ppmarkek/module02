@@ -14,7 +14,8 @@ exports[`Paginator component should render correctly 1`] = `
         >
           <button
             class="paginationButton"
-            data-testid="first-pagination-button"
+            data-testid="prev-pagination-button"
+            disabled=""
           >
             &lt;
           </button>
@@ -24,7 +25,7 @@ exports[`Paginator component should render correctly 1`] = `
             1
           </div>
           <div
-            class="paginatorButton"
+            class="activePaginatorButton"
           >
             2
           </div>
@@ -45,7 +46,7 @@ exports[`Paginator component should render correctly 1`] = `
           </div>
           <button
             class="paginationButton"
-            data-testid="second-pagination-button"
+            data-testid="next-pagination-button"
           >
             &gt;
           </button>
@@ -63,7 +64,8 @@ exports[`Paginator component should render correctly 1`] = `
       >
         <button
           class="paginationButton"
-          data-testid="first-pagination-button"
+          data-testid="prev-pagination-button"
+          disabled=""
         >
           &lt;
         </button>
@@ -73,7 +75,7 @@ exports[`Paginator component should render correctly 1`] = `
           1
         </div>
         <div
-          class="paginatorButton"
+          class="activePaginatorButton"
         >
           2
         </div>
@@ -94,7 +96,7 @@ exports[`Paginator component should render correctly 1`] = `
         </div>
         <button
           class="paginationButton"
-          data-testid="second-pagination-button"
+          data-testid="next-pagination-button"
         >
           &gt;
         </button>

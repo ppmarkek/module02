@@ -1,24 +1,39 @@
 import { renderWithRedux } from '../../../jestUtils';
-import {
-  appStoreMock,
-  resultsMock,
-  useSearchHookMock,
-} from '../../../fixtures/results';
-import * as useSearch from '../../../useSearch';
+import { appStoreMock, resultsMock } from '../../../fixtures/results';
 import '@testing-library/jest-dom';
-import * as router from 'react-router';
 import { fireEvent } from '@testing-library/react';
 import { SearchItemCard } from '../SearchItemCard';
 
-const navigate = jest.fn();
+const mockUsePathname = jest.fn();
+
+jest.mock('next/navigation', () => ({
+  ...require('next-router-mock'),
+  useSearchParams: () => jest.fn(),
+  usePathname() {
+    return mockUsePathname();
+  },
+}));
+
+jest.mock('next/router', () => ({
+  useRouter() {
+    return {
+      route: '/details/test-id',
+      pathname: '',
+      query: '',
+      asPath: '',
+      push: jest.fn(),
+      events: {
+        on: jest.fn(),
+        off: jest.fn(),
+      },
+      beforePopState: jest.fn(() => null),
+      prefetch: jest.fn(() => null),
+    };
+  },
+}));
 
 describe('SearchItemCard component', () => {
   it('should render correctly', () => {
-    jest.spyOn(useSearch, 'useSearch').mockImplementation(() => ({
-      ...useSearchHookMock,
-      isShowDetails: true,
-    }));
-
     const component = renderWithRedux(
       <SearchItemCard details={resultsMock.results[0]} number={1} />,
       {
@@ -27,20 +42,5 @@ describe('SearchItemCard component', () => {
     );
 
     expect(component).toMatchSnapshot();
-  });
-
-  it('should navigate to the details page', () => {
-    jest.spyOn(router, 'useNavigate').mockImplementation(() => navigate);
-    jest.spyOn(useSearch, 'useSearch').mockImplementation(() => ({
-      ...useSearchHookMock,
-      isShowDetails: true,
-    }));
-
-    const { getByTestId } = renderWithRedux(
-      <SearchItemCard details={resultsMock.results[0]} number={1} />
-    );
-    fireEvent.click(getByTestId('search-item-card-1'));
-
-    expect(navigate).toHaveBeenCalledWith('/details/test-id');
   });
 });

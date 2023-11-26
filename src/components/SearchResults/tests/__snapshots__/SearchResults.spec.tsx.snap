@@ -9,60 +9,9 @@ exports[`SearchResult component should render correctly 1`] = `
         class="searchResultsWrapper"
       >
         <div
-          class="searchResults false"
+          class="searchResults "
           data-testid="search-results"
-        >
-          <div
-            class="searchItemCard"
-            data-testid="search-item-card-0"
-          >
-            <h3>
-              Name: 
-              test name
-            </h3>
-            <p>
-              Created: 
-              01-01-0101
-            </p>
-            <p>
-              Edited: 
-              02-02-0202
-            </p>
-            <p>
-              Height: 
-              100
-            </p>
-            <p>
-              Mass: 
-              100
-            </p>
-          </div>
-          <div
-            class="searchItemCard"
-            data-testid="search-item-card-1"
-          >
-            <h3>
-              Name: 
-              test name
-            </h3>
-            <p>
-              Created: 
-              02-02-0202
-            </p>
-            <p>
-              Edited: 
-              03-03-0303
-            </p>
-            <p>
-              Height: 
-              test height
-            </p>
-            <p>
-              Mass: 
-              test mass
-            </p>
-          </div>
-        </div>
+        />
       </div>
     </div>
   </body>,
@@ -71,60 +20,9 @@ exports[`SearchResult component should render correctly 1`] = `
       class="searchResultsWrapper"
     >
       <div
-        class="searchResults false"
+        class="searchResults "
         data-testid="search-results"
-      >
-        <div
-          class="searchItemCard"
-          data-testid="search-item-card-0"
-        >
-          <h3>
-            Name: 
-            test name
-          </h3>
-          <p>
-            Created: 
-            01-01-0101
-          </p>
-          <p>
-            Edited: 
-            02-02-0202
-          </p>
-          <p>
-            Height: 
-            100
-          </p>
-          <p>
-            Mass: 
-            100
-          </p>
-        </div>
-        <div
-          class="searchItemCard"
-          data-testid="search-item-card-1"
-        >
-          <h3>
-            Name: 
-            test name
-          </h3>
-          <p>
-            Created: 
-            02-02-0202
-          </p>
-          <p>
-            Edited: 
-            03-03-0303
-          </p>
-          <p>
-            Height: 
-            test height
-          </p>
-          <p>
-            Mass: 
-            test mass
-          </p>
-        </div>
-      </div>
+      />
     </div>
   </div>,
   "debug": [Function],

@@ -13,8 +13,8 @@ exports[`SearchBar component should render correctly 1`] = `
           data-testid="search-bar"
         >
           <label
+            class="searchTitle"
             for="searchInput"
-            id="SearchTitle"
           >
             Search:
           </label>
@@ -22,7 +22,7 @@ exports[`SearchBar component should render correctly 1`] = `
             class="searchInput"
             data-testid="search-input"
             name="searchInput"
-            value="people"
+            value=""
           />
           <button
             class="searchButton"
@@ -31,8 +31,8 @@ exports[`SearchBar component should render correctly 1`] = `
             Show
           </button>
           <button
+            class="errorButton"
             data-testid="show-error-button"
-            id="errorButton"
           >
             Test Error
           </button>
@@ -70,8 +70,8 @@ exports[`SearchBar component should render correctly 1`] = `
         data-testid="search-bar"
       >
         <label
+          class="searchTitle"
           for="searchInput"
-          id="SearchTitle"
         >
           Search:
         </label>
@@ -79,7 +79,7 @@ exports[`SearchBar component should render correctly 1`] = `
           class="searchInput"
           data-testid="search-input"
           name="searchInput"
-          value="people"
+          value=""
         />
         <button
           class="searchButton"
@@ -88,8 +88,8 @@ exports[`SearchBar component should render correctly 1`] = `
           Show
         </button>
         <button
+          class="errorButton"
           data-testid="show-error-button"
-          id="errorButton"
         >
           Test Error
         </button>
