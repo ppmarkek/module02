@@ -1,0 +1,39 @@
+.detailsCard {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 30%;
+  height: 100%;
+  background: #f8f9fc;
+  display: flex;
+  justify-content: space-around;
+  z-index: 1000;
+}
+
+.closeDetails {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 70%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  z-index: 999;
+}
+
+.closeDetailsButton {
+  margin-top: 5px;
+  height: 42px;
+  width: 42px;
+  cursor: pointer;
+  border-radius: 10px;
+  border: 1px solid #e60606;
+  background: #fff;
+  color: #000;
+  transition: all 0.5s;
+}
+
+.closeDetailsButton:hover {
+  background: #e60606;
+  color: #fff;
+}
