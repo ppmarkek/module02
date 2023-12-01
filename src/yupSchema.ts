@@ -28,11 +28,13 @@ export const formSchema = Yup.object().shape({
   image: Yup.mixed()
     .required('Image is required')
     .test('fileSize', 'The file size must not exceed 5 MB', (value) => {
-      return value && (value as File).size <= 5242880;
+      const fileList = value as FileList | undefined;
+      const file = fileList ? fileList[0] : null;
+      return file ? file.size <= 5242880 : false;
     })
     .test('fileFormat', 'Only JPEG and PNG are accepted', (value) => {
-      return (
-        value && ['image/jpeg', 'image/png'].includes((value as File).type)
-      );
+      const fileList = value as FileList | undefined;
+      const file = fileList ? fileList[0] : null;
+      return file ? ['image/jpeg', 'image/png'].includes(file.type) : false;
     }),
 });
