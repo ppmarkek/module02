@@ -1,9 +1,34 @@
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import './style.css';
 
+interface FormState {
+  name: string;
+  age: number;
+  email: string;
+  password: string;
+  gender: string;
+  image: string;
+}
+
+interface RootState {
+  formReducer: FormState;
+}
+
 const Main = () => {
-  const formReducer = useSelector((state: object) => state.formReducer);
+  const formReducer = useSelector((state: RootState) => state.formReducer);
+  const [newData, setNewData] = useState(false);
+
+  useEffect(() => {
+    if (formReducer.name !== '') {
+      setNewData(true);
+      const timer = setTimeout(() => setNewData(false), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [formReducer]);
+
+  const dataBoxStyle = newData ? 'allData newData' : 'allData';
 
   return (
     <div className="wrapper">
@@ -14,7 +39,7 @@ const Main = () => {
         <Link to={'/secondForm'}>React Hook Form</Link>
       </button>
       {formReducer.name !== '' && (
-        <div className="allData">
+        <div className={dataBoxStyle}>
           <div className="dataBox">
             <p>Name:</p>
             <p>{formReducer.name}</p>

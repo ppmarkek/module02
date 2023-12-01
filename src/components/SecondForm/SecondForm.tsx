@@ -1,4 +1,3 @@
-import React from 'react';
 import './style.css';
 import { formSchema } from '../../yupSchema';
 import { useDispatch } from 'react-redux';
@@ -23,7 +22,7 @@ interface FormValidationValues {
   confirmPassword: string;
   gender: 'male' | 'female';
   termsAndConditions: boolean;
-  image: File;
+  image: File | null;
 }
 
 const SecondForm = () => {
@@ -34,11 +33,10 @@ const SecondForm = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<FormValidationValues>({
-    resolver: yupResolver(formSchema),
+    resolver: yupResolver(formSchema as never),
   });
 
   const onSubmit: SubmitHandler<FormValidationValues> = (values) => {
-    console.log(values.image);
     dispatch(setName(values.name));
     dispatch(setAge(values.age));
     dispatch(setEmail(values.email));
@@ -46,15 +44,20 @@ const SecondForm = () => {
     dispatch(setGender(values.gender));
     dispatch(setTermsAndConditions(values.termsAndConditions));
 
-    if (values.image) {
+    const imageInput = document.querySelector(
+      'input[type="file"]'
+    ) as HTMLInputElement;
+    const imageFile = imageInput?.files ? imageInput.files[0] : null;
+
+    if (imageFile && imageFile.size > 0) {
       const reader = new FileReader();
-      reader.onload = async (event) => {
+      reader.onload = (event) => {
         if (event.target?.result) {
           dispatch(setImage(event.target.result.toString()));
           navigate('/');
         }
       };
-      reader.readAsDataURL(values.image);
+      reader.readAsDataURL(imageFile);
     } else {
       navigate('/');
     }
