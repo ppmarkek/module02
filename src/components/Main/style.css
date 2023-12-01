@@ -31,3 +31,18 @@
   text-decoration: none;
   color: #000;
 }
+
+.allData {
+  display: flex;
+  flex-direction: column;
+}
+
+.dataBox {
+  display: flex;
+  gap: 5px;
+}
+
+.dataBox img {
+  width: 200px;
+  height: 200px;
+}
