@@ -1,0 +1,52 @@
+.wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.wrapper button {
+  all: unset;
+  width: 300px;
+  height: 40px;
+  border-radius: 20px;
+  border: 1px solid #000;
+  cursor: pointer;
+  transition: all 0.5s;
+}
+
+.wrapper button:hover {
+  border: 1px solid #6b59cc;
+}
+
+.wrapper button a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+  color: #000;
+}
+
+.allData {
+  display: flex;
+  flex-direction: column;
+}
+
+.dataBox {
+  display: flex;
+  gap: 5px;
+}
+
+.dataBox img {
+  width: 200px;
+  height: 200px;
+}
+
+.newData {
+  border: 1px solid #6b59cc;
+}
