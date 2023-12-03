@@ -10,6 +10,7 @@ interface FormState {
   password: string;
   gender: string;
   image: string;
+  countries: string;
 }
 
 interface RootState {
@@ -63,6 +64,10 @@ const Main = () => {
           <div className="dataBox">
             <p>Image:</p>
             <img src={formReducer.image} alt="img" />
+          </div>
+          <div className="dataBox">
+            <p>Country:</p>
+            <p>{formReducer.countries}</p>
           </div>
         </div>
       )}

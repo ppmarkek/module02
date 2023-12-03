@@ -8,6 +8,7 @@ const initialState = {
   gender: '',
   termsAndConditions: false,
   image: null,
+  countries: '',
 };
 
 const formSlice = createSlice({
@@ -35,6 +36,9 @@ const formSlice = createSlice({
     setTermsAndConditions: (state, { payload }) => {
       state.image = payload;
     },
+    setCountry: (state, { payload }) => {
+      state.countries = payload;
+    },
   },
 });
 
@@ -46,5 +50,6 @@ export const {
   setGender,
   setImage,
   setTermsAndConditions,
+  setCountry,
 } = formSlice.actions;
 export default formSlice.reducer;
